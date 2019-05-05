@@ -143,15 +143,15 @@ return fetch('http://35.246.54.179/prediction/')
               <View style={{ flex: 1, flexDirection: 'column', 
                             paddingTop:0, paddingBottom:16 }}>
                 <TouchableOpacity onPress={this.passdetails.bind(this,rowData.name,rowData.brand,rowData.image)}>              
+                <Image style={styles.ImageComponentStyle} source = {{ uri:rowData.image}} />
+                <Text style={styles.textViewContainerHeading}>
+                 Dress Brand: {rowData.brand}
+                </Text>
                 
                 <Text style={styles.textViewContainerHeading}>
-                 Dress Brand: {rowData.notAvailable}
-                </Text>
-                
-                <Text style={styles.textViewContainer}>
                  Percentage Discount: {rowData.brand}
                 </Text>
-                <Text style={styles.textViewContainer}>
+                <Text style={styles.textViewContainerHeading}>
                  Dress Type: {rowData.name}
                 </Text>
                 </TouchableOpacity> 
