@@ -229,6 +229,12 @@ export default class App extends Component {
     this._retrieveData();
   }
 
+  static navigationOptions =
+  {
+    title: 'BARCODE',
+
+  };
+
   onOpenlink() {
     Linking.openURL(this.state.qrvalue);
   }
@@ -306,21 +312,24 @@ export default class App extends Component {
   };
 
   handlePress = async () => {
+    var div = this.state.qrvalue.split(" ");
+    shop = div[0];
+    branch=div[1];
     fetch('http://104.196.211.215/detectShop/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          "shop_name" :this.state.qrvalue,
-          "branch" : "Kadawatha"
+          "shop_name" :shop,
+          "branch" : branch
          
         })
   })
       .then((response) => response.json())
       .then((responseJson) => {
         console.log(responseJson);
-      Alert.alert(responseJson.msg+" : "+this.state.qrvalue);
+        Alert.alert(responseJson.msg+" : "+this.state.qrvalue+" branch.");
    
       })
       .catch((error) => {
