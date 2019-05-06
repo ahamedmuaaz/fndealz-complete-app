@@ -1,7 +1,7 @@
 
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Alert,Text, View,AsyncStorage,ActivityIndicator, ListView,TouchableOpacity,Image,Modal,TouchableHighlight} from 'react-native';
-
+import { NavigationEvents } from "react-navigation";
  ActivityIndicator, ListView
 
 class Viewitem extends React.Component {
@@ -12,12 +12,13 @@ class Viewitem extends React.Component {
       //to disable which data is loading
       isLoading: true,
       modalVisible: false,
+
      
     };
   }
 
   componentDidMount(){
-    
+    //this.props.navigation.addListener('willFocus', (route) => { this.setState({isLoading: false })});
      //this._retrieveData();
     
     /* fetch('http://35.246.54.179/login/', {
@@ -97,10 +98,7 @@ return fetch('http://104.196.211.215/prediction/')
 
     //console.log("moubnted");
   }
-  componentWillUnmount(){
-    console.log("hello");
-  }
-
+  
   ListViewItemSeparator = () => {
     //Divider for the list item
     return (
@@ -123,9 +121,10 @@ return fetch('http://104.196.211.215/prediction/')
   static navigationOptions =
   {
     title: 'PRODUCTS',
-
+  
   };
   render() {
+  
     if (this.state.isLoading) {
       //returning the loader view while data is loading
       return (
@@ -137,6 +136,7 @@ return fetch('http://104.196.211.215/prediction/')
       //returning the main view after data loaded successfully
       return (
         <View style={styles.MainContainer}>
+         
           <ListView
             dataSource={this.state.dataSource}
             renderSeparator={this.ListViewItemSeparator}
