@@ -34,6 +34,28 @@ console.disableYellowBox = true;
 
  
 class main extends Component {
+  componentDidMount(){
+  console.log("helo");
+  /*fetch('http://104.196.211.215/loadModel/', {
+    method: 'POST',
+    headers: {
+    Accept: 'application/json',
+   'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+  
+    }),
+
+   }).then((response) => response.json())
+   .then((responseJson) => {
+   console.log("hello");
+   console.log(responseJson);
+   
+   })
+   .catch((error) => {
+   console.error(error);
+   });*/
+  }
   state = {
     currentScreen: 'login', // can be: 'login' or 'register' or 'forgot'
   };
