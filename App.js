@@ -17,6 +17,7 @@ import bgSrc from './assets/wallpaper.png';
 import * as firebase from 'firebase';
 import { createStackNavigator, createSwitchNavigator, createAppContainer} from "react-navigation";
 import Product from './src/components/product/product';
+import Barcodeview from './src/components/barcode/barcodeview';
 
 var config = {
   apiKey: "AIzaSyBV_rxIEkOuxVL13UtzYTicE3C99g4zZx0",
@@ -89,7 +90,7 @@ class DetailsScreen extends React.Component {
 }
 
 
-const AppStack = createStackNavigator({  Product: Product});
+const AppStack = createStackNavigator({Product:{ screen: Product},BarcodeView:{screen:Barcodeview}});
 const AuthStack = createStackNavigator({ Home:main},{
   headerMode: 'none',
   navigationOptions: {

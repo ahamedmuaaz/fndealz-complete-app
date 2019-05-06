@@ -6,7 +6,9 @@ import { createAppContainer, createStackNavigator } from 'react-navigation';
 class DetailsScreen extends React.Component {
   static navigationOptions =
   {
-    title: 'Details',headerStyle: {
+    title: 'BarcodeView',
+    headerLeft: null,
+    headerStyle: {
       backgroundColor: '#c41bb0',
     },
     headerTintColor: '#fff',

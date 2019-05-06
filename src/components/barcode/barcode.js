@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Text,View,TouchableHighlight, PermissionsAndroid, StyleSheet} from 'react-native';
+import {Text,View,TouchableHighlight, PermissionsAndroid, StyleSheet,Alert} from 'react-native';
 import { CameraKitCameraScreen, } from 'react-native-camera-kit';
 
 
@@ -92,7 +92,8 @@ export default class App extends Component {
   }
 
   handlePress = async (value) => {
-    fetch('http://35.246.54.179/barcode/', {
+    
+    fetch('http://104.196.211.215/barcode/', {
       method: 'POST',
       headers: {
       Accept: 'application/json',
@@ -105,12 +106,12 @@ export default class App extends Component {
     
      }).then((response) => response.json())
      .then((responseJson) => {
-
+      console.log(responseJson);
       if(this.isEmpty(responseJson)){
-       console.log("sorry");
+       Alert.alert("Sorry Item Not Found");
       }
       else{
-      console.log(responseJson);
+        this.props.navigation.navigate('BarcodeView',{name:responseJson.name,brand:responseJson.brand,image:responseJson.image}); 
       }
      
     

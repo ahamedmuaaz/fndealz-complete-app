@@ -20,7 +20,7 @@ class Viewitem extends React.Component {
     
      //this._retrieveData();
     
-     fetch('http://35.246.54.179/login/', {
+    /* fetch('http://35.246.54.179/login/', {
      method: 'POST',
      headers: {
      Accept: 'application/json',
@@ -41,9 +41,9 @@ class Viewitem extends React.Component {
  })
  .catch((error) => {
    console.error(error);
- });
+ });*/
 
- fetch('http://35.246.54.179/detectShop/', {
+ fetch('http://104.196.211.215/detectShop/', {
   method: 'POST',
   headers: {
   Accept: 'application/json',
@@ -65,7 +65,7 @@ console.error(error);
 });
 
 
-return fetch('http://35.246.54.179/prediction/')
+return fetch('http://104.196.211.215/prediction/')
       .then(response => response.json())
       .then(responseJson => {
         console.log(responseJson);

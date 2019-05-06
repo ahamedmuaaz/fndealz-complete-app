@@ -211,7 +211,8 @@ import {
    Platform, 
    StyleSheet,
    TouchableOpacity,
-   Alert
+   Alert,
+   AsyncStorage
   } from 'react-native';
 
 import { CameraKitCameraScreen, } from 'react-native-camera-kit';
@@ -223,6 +224,9 @@ export default class App extends Component {
       qrvalue: '',        //variable to hold the qr value
       opneScanner: false,
     };
+  }
+  componentDidMount(){
+    this._retrieveData();
   }
 
   onOpenlink() {
@@ -263,9 +267,46 @@ export default class App extends Component {
       that.setState({ opneScanner: true });
     }    
   }
+  _retrieveData = async () => {
+    try {
+      const value = await AsyncStorage.getItem('email');
+      const pass = await AsyncStorage.getItem('pass');
+      if (value !== null) {
+        // We have data!!
+        console.log(value);
+         this.setState({ user:value});
+         this.setState({pass:pass});
+        console.log(pass);
+
+        fetch('http://104.196.211.215/login/', {
+          method: 'POST',
+          headers: {
+          Accept: 'application/json',
+         'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+         'email': this.state.user,
+         'pass':this.state.pass,
+          }),
+      
+         }).then((response) => response.json())
+         .then((responseJson) => {
+         console.log("hello");
+         console.log(responseJson);
+         
+         })
+         .catch((error) => {
+         console.error(error);
+         });
+      }
+    } catch (error) {
+      // Error retrieving data
+      //console.log(error);
+    }
+  };
 
   handlePress = async () => {
-    fetch('http://35.246.54.179/detectShop/', {
+    fetch('http://104.196.211.215/detectShop/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
