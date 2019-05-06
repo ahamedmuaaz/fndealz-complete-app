@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, View, Text,Image,StyleSheet,Platform } from 'react-native';
+import { Button, View, Text,Image,StyleSheet,Platform,TouchableHighlight } from 'react-native';
 import { createAppContainer, createStackNavigator } from 'react-navigation'; 
 
 
@@ -28,13 +28,16 @@ class DetailsScreen extends React.Component {
         <View style={styles.MainContainer}>
         
         <Image style={styles.ImageComponentStyle} source = {{ uri:img.toString()}} />
-        <Text>Name: {JSON.stringify(name)}</Text>
-        <Text>Brand: {JSON.stringify(brand)}</Text>
-        <Text>Price:{JSON.stringify(price)}</Text>
-        <Button
-            title="Go to Details... again"
-            onPress={() => this.props.navigation.navigate('Second')}
-          />
+        <Text>Name:{name}</Text>
+        <Text>Brand:{brand}</Text>
+        <Text>Price:{price}</Text>
+        <TouchableHighlight
+              onPress={() => this.props.navigation.navigate('Second')}
+              style={styles.button}>
+                <Text style={{ color: '#FFFFFF', fontSize:12}}>
+                Back
+                </Text>
+            </TouchableHighlight>
         </View>
       );
     }
@@ -73,6 +76,12 @@ class DetailsScreen extends React.Component {
       textViewContainer: {
       paddingLeft: 10,
       paddingRight: 10,
-    },
+    },button: {
+      alignItems: 'center',
+      backgroundColor: '#2c3539',
+      padding: 10,
+      width:250,
+      marginTop:16
+    }
   });
   
