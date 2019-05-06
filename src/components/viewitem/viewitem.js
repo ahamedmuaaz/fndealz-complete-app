@@ -43,7 +43,7 @@ class Viewitem extends React.Component {
    console.error(error);
  });*/
 
- fetch('http://104.196.211.215/detectShop/', {
+ /*fetch('http://104.196.211.215/detectShop/', {
   method: 'POST',
   headers: {
   Accept: 'application/json',
@@ -62,7 +62,7 @@ class Viewitem extends React.Component {
 })
 .catch((error) => {
 console.error(error);
-});
+});*/
 
 
 return fetch('http://104.196.211.215/prediction/')
@@ -97,11 +97,14 @@ return fetch('http://104.196.211.215/prediction/')
 
     //console.log("moubnted");
   }
+  componentWillUnmount(){
+    console.log("hello");
+  }
 
   ListViewItemSeparator = () => {
     //Divider for the list item
     return (
-      <View style={{ height: 0.5, width: '100%', backgroundColor: '#080808' }} />
+      <View style={{ height: 0, width: '100%', backgroundColor: '#080808' }} />
     );
   };
 
@@ -140,20 +143,10 @@ return fetch('http://104.196.211.215/prediction/')
             renderRow={rowData => (
 
               
-              <View style={{ flex: 1, flexDirection: 'column', 
+              <View style={{ flex: 1,justifyContent:'center',alignContent:'center',
                             paddingTop:0, paddingBottom:16 }}>
-                <TouchableOpacity onPress={this.passdetails.bind(this,rowData.name,rowData.brand,rowData.image)}>              
+                <TouchableOpacity onPress={this.passdetails.bind(this,rowData.name,rowData.brand,rowData.image,rowData.price,rowData.discount)}>              
                 <Image style={styles.ImageComponentStyle} source = {{ uri:rowData.image}} />
-                <Text style={styles.textViewContainerHeading}>
-                 Dress Brand: {rowData.brand}
-                </Text>
-                
-                <Text style={styles.textViewContainerHeading}>
-                 Percentage Discount: {rowData.brand}
-                </Text>
-                <Text style={styles.textViewContainerHeading}>
-                 Dress Type: {rowData.name}
-                </Text>
                 </TouchableOpacity> 
                 
                
@@ -195,11 +188,11 @@ return fetch('http://104.196.211.215/prediction/')
     }
   };
 
-  passdetails(nam,brd,img){
+  passdetails(nam,brd,img,prce,dis){
     
     console.log(nam);
     console.log(img);
-    this.props.navigation.navigate('Product',{name:nam,brand:brd,image:img});
+    this.props.navigation.navigate('Product',{name:nam,brand:brd,image:img,price:prce,discount:dis});
    
     //console.log(pass);
   };
@@ -213,14 +206,16 @@ const styles = StyleSheet.create({
     paddingTop: Platform.OS === 'ios' ? 20 : 30,
     backgroundColor: '#ffffff',
     padding: 5,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   ImageComponentStyle: {
     
     justifyContent: 'center',
     flex:1,
     alignItems: 'center',
-    height: 100,
-    width:100,
+    height: 200,
+    width:200,
     backgroundColor: '#4CAF50'
    
   },

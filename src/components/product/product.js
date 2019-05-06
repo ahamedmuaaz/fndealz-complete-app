@@ -20,20 +20,25 @@ class DetailsScreen extends React.Component {
       const name = this.props.navigation.getParam('name','no name');
       const brand= this.props.navigation.getParam('brand','no brand');
       const img= this.props.navigation.getParam('image','imagefound');
+      const price= this.props.navigation.getParam('price',0);
+      const discount=this.props.navigation.getParam('discount',0);
       //const price= this.props.navigation.getParam('price','not found');
       //img=JSON.stringify(img);
       return (
         <View style={styles.MainContainer}>
         
         <Image style={styles.ImageComponentStyle} source = {{ uri:img.toString()}} />
-        <Text>name: {img}</Text>
-          <Text>name: {JSON.stringify(name)}</Text>
-          <Text>brand: {JSON.stringify(brand)}</Text>
-          <Button
-            title="Go to Details... again"
-            onPress={() => this.props.navigation.navigate('Second')}
-          />
-          <Text>Details Screen</Text>
+        <Text style={styles.textViewContainer}>Name:{name}</Text>
+        <Text style={styles.textViewContainer}>Brand:{brand}</Text>
+        <Text style={styles.textViewContainer}>Price:{price}</Text>
+        <Text style={styles.textViewContainer}><Text style={{ color: '#FF0000'}}>Discounted Price:{price-(price*discount/100)}</Text></Text>
+        <TouchableHighlight
+              onPress={() => this.props.navigation.navigate('Second')}
+              style={styles.button}>
+                <Text style={{ color: '#FFFFFF', fontSize:12}}>
+                Back
+                </Text>
+            </TouchableHighlight>
         </View>
       );
     }
@@ -60,6 +65,7 @@ class DetailsScreen extends React.Component {
      
       width:200, 
       height:200,
+      marginBottom:20
      
     },
     textViewContainerHeading: {
@@ -72,6 +78,15 @@ class DetailsScreen extends React.Component {
       textViewContainer: {
       paddingLeft: 10,
       paddingRight: 10,
+      fontWeight:'bold',
+      fontSize: 20,
     },
+    button: {
+      alignItems: 'center',
+      backgroundColor: '#2c3539',
+      padding: 10,
+      width:250,
+      marginTop:16
+    }
   });
   

@@ -73,11 +73,13 @@ const styles = StyleSheet.create({
 		justifyContent: 'center',
 	},
 	name: {
-        
-		fontSize: 20,
+        fontStyle: 'italic',
+		fontSize:18,
 		paddingBottom: 5,
-		color: 'white',
-		textAlign: 'left',
+		color: 'black',
+		textAlign: 'right',
+		fontWeight:'bold',
+		marginRight:10
 	},
 	imgView: {
 		flex: 1,

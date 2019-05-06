@@ -3,13 +3,13 @@ import {Text,View,TouchableHighlight, PermissionsAndroid, StyleSheet,Alert} from
 import { CameraKitCameraScreen, } from 'react-native-camera-kit';
 
 
-export default class App extends Component {
+export default class barcode extends Component {
   constructor() {
     super();
     this.state = {
       //variable to hold the value
       value: '',
-      opneScanner: true,
+      openScanner: true,
     };
   }
 
@@ -59,7 +59,7 @@ export default class App extends Component {
   renderBarcode(value) {
     //called after te successful scanning of Barcode
     this.setState({ value: value });
-    this.setState({ opneScanner: false });
+    this.setState({ openScanner: false });
   }
 
   renderCamera() {
@@ -76,7 +76,7 @@ export default class App extends Component {
           if (granted === PermissionsAndroid.RESULTS.GRANTED) {
             //If CAMERA Permission is granted
             that.setState({ value: '' });
-            that.setState({ opneScanner: true });
+            that.setState({ openScanner: true });
           } else {
             alert("Access denied");
           }
@@ -134,11 +134,11 @@ export default class App extends Component {
     //return <View style={styles.container}>{this.renderCamera()}</View>;
 
     //If value is set then return this view
-    if (!this.state.opneScanner) {
+    if (!this.state.openScanner) {
       return (
         //display details
         <View style={styles.container}>
-            <Text style={styles.simpleText}>{this.state.value ? 'Scanned Code: '+this.state.value : ''}</Text>
+          
 
            
             <TouchableHighlight

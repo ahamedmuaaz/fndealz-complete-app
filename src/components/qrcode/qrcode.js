@@ -355,7 +355,7 @@ export default class App extends Component {
             <TouchableHighlight
               onPress={() => this.onOpneScanner()}
               style={styles.button}>
-                <Text style={{ color: '#FFFFFF', fontSize: 18 }}>
+                <Text style={{ color: '#FFFFFF', fontSize: 15 }}>
                 Touch to Scan
                 </Text>
             </TouchableHighlight>
@@ -405,7 +405,7 @@ const styles = StyleSheet.create({
   },
   heading: { 
     color: 'black', 
-    fontSize: 35, 
+    fontSize: 25, 
     alignSelf: 'center', 
     padding: 10, 
     marginTop: 30 
