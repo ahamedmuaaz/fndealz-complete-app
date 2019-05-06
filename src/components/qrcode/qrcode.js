@@ -231,7 +231,7 @@ export default class App extends Component {
 
   static navigationOptions =
   {
-    title: 'BARCODE',
+    title: 'QRCODE',
 
   };
 
