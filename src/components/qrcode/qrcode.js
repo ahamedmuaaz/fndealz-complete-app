@@ -232,7 +232,6 @@ export default class App extends Component {
   static navigationOptions =
   {
     title: 'QRCODE',
-
   };
 
   onOpenlink() {
@@ -315,14 +314,15 @@ export default class App extends Component {
     var div = this.state.qrvalue.split(" ");
     shop = div[0];
     branch=div[1];
+    console.log(shop)
     fetch('http://104.196.211.215/detectShop/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          "shop_name" :shop,
-          "branch" : branch
+          'shop_name':shop,
+          'branch': branch
          
         })
   })
