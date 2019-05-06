@@ -22,20 +22,19 @@ class DetailsScreen extends React.Component {
       const name = this.props.navigation.getParam('name','no name');
       const brand= this.props.navigation.getParam('brand','no brand');
       const img= this.props.navigation.getParam('image','imagefound');
-      const imgc=JSON.stringify(img);
+      const price= this.props.navigation.getParam('price','not found');
       //img=JSON.stringify(img);
       return (
         <View style={styles.MainContainer}>
         
         <Image style={styles.ImageComponentStyle} source = {{ uri:img.toString()}} />
-        <Text>name: {img}</Text>
-          <Text>name: {JSON.stringify(name)}</Text>
-          <Text>brand: {JSON.stringify(brand)}</Text>
-          <Button
+        <Text>Name: {JSON.stringify(name)}</Text>
+        <Text>Brand: {JSON.stringify(brand)}</Text>
+        <Text>Price:{JSON.stringify(price)}</Text>
+        <Button
             title="Go to Details... again"
             onPress={() => this.props.navigation.navigate('Second')}
           />
-          <Text>Details Screen</Text>
         </View>
       );
     }

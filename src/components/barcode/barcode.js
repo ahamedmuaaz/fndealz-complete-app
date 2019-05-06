@@ -111,7 +111,7 @@ export default class App extends Component {
        Alert.alert("Sorry Item Not Found");
       }
       else{
-        this.props.navigation.navigate('BarcodeView',{name:responseJson.name,brand:responseJson.brand,image:responseJson.image}); 
+        this.props.navigation.navigate('BarcodeView',{name:responseJson.name,brand:responseJson.brand,image:responseJson.image,price:responseJson.price}); 
       }
      
     
