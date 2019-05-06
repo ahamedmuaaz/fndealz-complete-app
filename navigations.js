@@ -4,6 +4,7 @@ import  QRCODE from './src/components/qrcode/qrcode';
 import  BARCODE  from './src/components/barcode/barcode';
 import Viewitem from './src/components/viewitem/viewitem';
 import MenuDrawer from './src/menudrawer/MenuDrawer';
+import About from './screens/About/about';
 
 
  
@@ -141,11 +142,8 @@ export const Tab_1 = createMaterialTopTabNavigator({
   });
  
 export const Tab_2 = createMaterialTopTabNavigator({
-  Third: {
-    screen: Student_Screen,
-  },
   Forth: {
-    screen: Details_Screen,
+    screen:About,
   }
 }, {
     tabBarPosition: 'top',
@@ -175,12 +173,13 @@ const First_2_Tabs = createStackNavigator({
   First: {
     screen: Tab_1,
     navigationOptions: ({ navigation }) => ({
-      title: 'First Screen',
+      title: 'Home',
       headerLeft: <HamburgerIcon navigationProps={navigation} />,
       headerStyle: {
         backgroundColor: '#c41bb0',
         elevation: 0, // remove shadow on Android
         shadowOpacity: 0, // remove shadow on iOS
+      
       },
       headerTintColor: '#fff',
     })
@@ -191,7 +190,7 @@ const Second_2_Tabs = createStackNavigator({
   First: {
     screen: Tab_2,
     navigationOptions: ({ navigation }) => ({
-      title: 'Second Screen',
+      title: ' ',
       headerLeft: <HamburgerIcon navigationProps={navigation} />,
       headerStyle: {
         backgroundColor: '#c41bb0',
