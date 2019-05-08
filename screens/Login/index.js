@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, TouchableOpacity,Text, Image,AsyncStorage} from 'react-native';
+import { StyleSheet, View, TouchableOpacity,Text, Image,AsyncStorage,ActivityIndicator,StatusBar} from 'react-native';
 import InputField from "../../components/InputField";
 import {w, h, totalSize} from '../../api/Dimensions';
 import GetStarted from './GetStarted';
@@ -11,10 +11,24 @@ const password = require('../../assets/password.png');
 
 export default class Login extends Component {
 
+  constructor() {
+    super();
+    //this._bootstrapAsync();
+  }
+
   state = {
     isEmailCorrect: false,
     isPasswordCorrect: false,
     isLogin: false,
+  };
+
+  _bootstrapAsync = async () => {
+    const userToken = await AsyncStorage.getItem('userToken');
+    console.log(userToken);
+
+    // This will switch to the App screen or Auth screen and this loading
+    // screen will be unmounted and thrown away.
+    this.props.navigation.navigate(userToken ? 'App' : 'Auth');
   };
 
   getStarted = () => {
@@ -67,6 +81,8 @@ export default class Login extends Component {
   render() {
     return (
       <View style={styles.container}>
+        <ActivityIndicator />
+        <StatusBar barStyle="default" />
         <Image style={styles.icon} resizeMode="contain" source={companyLogo}/>
         <InputField
           placeholder="Email"

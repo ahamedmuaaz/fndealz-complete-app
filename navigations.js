@@ -53,62 +53,8 @@ class HamburgerIcon extends Component {
 }
  
  
-class Student_Screen extends Component {
- 
-  static navigationOptions =
-    {
-      title: 'Student',
- 
-    };
- 
-  gotoNextActivity = () => {
-    this.props.navigation.navigate('Forth');
- 
-  }
- 
-  render() {
- 
-    return (
- 
-      <View style={styles.MainContainer}>
- 
-        <Text style={styles.text}>This is Student Screen Activity.</Text>
- 
-        <Button onPress={this.gotoNextActivity} title='Open Details Activity' />
- 
-      </View>
-    );
-  }
-}
- 
-class Details_Screen extends Component {
- 
-  static navigationOptions =
-    {
-      title: 'Details Screen',
- 
-    };
- 
-  gotoNextActivity = () => {
-    this.props.navigation.navigate('Second');
- 
-  }
- 
-  render() {
- 
-    return (
- 
-      <View style={styles.MainContainer}>
- 
-        <Text style={styles.text}>This is Details Screen Activity.</Text>
- 
-      </View>
-    );
-  }
-}
- 
 export const Tab_1 = createMaterialTopTabNavigator({
-  First: {
+  First1: {
     screen: QRCODE,
   },
   Second: {
@@ -190,7 +136,7 @@ const Second_2_Tabs = createStackNavigator({
   First: {
     screen: Tab_2,
     navigationOptions: ({ navigation }) => ({
-      title: ' ',
+      title: '',
       headerLeft: <HamburgerIcon navigationProps={navigation} />,
       headerStyle: {
         backgroundColor: '#c41bb0',

@@ -73,10 +73,11 @@ class DetailsScreen extends React.Component {
       color: '#000000',
       fontWeight:'bold'
     },
-      textViewContainer: {
+    textViewContainer: {
       paddingLeft: 10,
       paddingRight: 10,
-    },button: {
+    },
+    button: {
       alignItems: 'center',
       backgroundColor: '#2c3539',
       padding: 10,

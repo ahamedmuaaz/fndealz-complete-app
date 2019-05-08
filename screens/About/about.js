@@ -4,7 +4,8 @@ import {
   Text,
   View,
   Image,
-  TouchableOpacity
+  TouchableOpacity,
+  TouchableHighlight
 } from 'react-native';
 
 export default class Profile extends Component {
@@ -28,11 +29,16 @@ export default class Profile extends Component {
             <View style={styles.bodyContent}>
               <Text style={styles.name}>Fashion N Dealz</Text>
               <Text style={styles.info}>A style For Every Story</Text>
-              <Text style={styles.description}>Version 1.0 Develop By Decoders</Text>
+              <Text style={styles.description}>Version 1.0</Text>
+              <Text style={styles.description}>Designed & Developed By Decoders</Text>
               
-              <TouchableOpacity style={styles.buttonContainer} onPress={() => this.props.navigation.navigate('First')}>
-                <Text>Back</Text>  
-              </TouchableOpacity>              
+              <TouchableHighlight
+               onPress={() => this.props.navigation.navigate('First1')}
+               style={styles.buttonContainer}>
+                <Text style={{ color: '#FFFFFF', fontSize:12}}>
+                Back
+                </Text>
+               </TouchableHighlight>         
               
             </View>
         </View>
@@ -84,7 +90,8 @@ const styles = StyleSheet.create({
     fontSize:16,
     color: "#696969",
     marginTop:10,
-    textAlign: 'center'
+    textAlign: 'center',
+    fontStyle: 'italic',
   },
   buttonContainer: {
     marginTop:10,

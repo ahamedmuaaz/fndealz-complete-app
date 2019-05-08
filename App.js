@@ -34,6 +34,20 @@ console.disableYellowBox = true;
 
  
 class main extends Component {
+
+  constructor() {
+    super();
+    this._bootstrapAsync();
+  }
+
+  _bootstrapAsync = async () => {
+    const userToken = await AsyncStorage.getItem('userToken');
+    console.log(userToken);
+
+    // This will switch to the App screen or Auth screen and this loading
+    // screen will be unmounted and thrown away.
+    this.props.navigation.navigate(userToken ? 'App' : 'Auth');
+  };
   componentDidMount(){
   console.log("helo");
   /*fetch('http://104.196.211.215/loadModel/', {
@@ -64,8 +78,9 @@ class main extends Component {
     this.setState({ currentScreen: screenName });
   };
 
-  userSuccessfullyLoggedIn = (user) => {
-    this.props.navigation.navigate('App')
+  userSuccessfullyLoggedIn =async(user) => {
+    await AsyncStorage.setItem('userToken', 'abc');
+    this.props.navigation.navigate('App');
   };
 
   render() {
@@ -116,7 +131,7 @@ const AppStack = createStackNavigator({Product:{ screen: Product},BarcodeView:{s
 const AuthStack = createStackNavigator({ Home:main},{
   headerMode: 'none',
   navigationOptions: {
-    headerVisible: false,
+  headerVisible: false,
   }
  });
 
