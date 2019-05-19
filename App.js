@@ -85,9 +85,10 @@ class main extends Component {
 
   render() {
     let screenToShow;
-
+    
     switch(this.state.currentScreen) {
       case 'login':
+      
         screenToShow = <Login change={this.changeScreen} success={this.userSuccessfullyLoggedIn}/>;
         break;
       case 'register':

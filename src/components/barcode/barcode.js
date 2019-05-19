@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import {Text,View,TouchableHighlight, PermissionsAndroid, StyleSheet,Alert} from 'react-native';
+import {Text,View,TouchableHighlight, PermissionsAndroid, StyleSheet,Alert,AsyncStorage} from 'react-native';
 import { CameraKitCameraScreen, } from 'react-native-camera-kit';
+import { NavigationEvents } from "react-navigation";
 
 
 export default class barcode extends Component {
@@ -9,8 +10,18 @@ export default class barcode extends Component {
     this.state = {
       //variable to hold the value
       value: '',
-      openScanner: true,
+      openScanner:false,
+      email:''
     };
+  }
+
+  componentDidMount(){
+   this.getData();
+
+  }
+  getData=async() =>{
+    const mail = await AsyncStorage.getItem('email');
+    this.setState({email:mail});
   }
 
   static navigationOptions =
@@ -92,14 +103,18 @@ export default class barcode extends Component {
   }
 
   handlePress = async (value) => {
-    
-    fetch('http://104.196.211.215/barcode/', {
+    const mail = await AsyncStorage.getItem('email');
+    console.log(value);
+    console.log(mail);
+    console.log(this.state.email);
+    fetch('http://35.246.67.79/barcode/', {
       method: 'POST',
       headers: {
       Accept: 'application/json',
      'Content-Type': 'application/json',
       },
       body: JSON.stringify({
+       'email':this.state.email,
        'barcode':value
      
       }),
@@ -110,6 +125,9 @@ export default class barcode extends Component {
       if(this.isEmpty(responseJson)){
        Alert.alert("Sorry Item Not Found");
       }
+      else if(responseJson.error=='Error'){
+        Alert.alert("server error");
+      }
       else{
         this.props.navigation.navigate('BarcodeView',{name:responseJson.name,brand:responseJson.brand,image:responseJson.image,price:responseJson.price}); 
       }
@@ -118,7 +136,7 @@ export default class barcode extends Component {
      
     })
     .catch((error) => {
-    console.error(error);
+     //console.error(error);
     });
   }
 
@@ -132,6 +150,7 @@ export default class barcode extends Component {
 
   render() {
     //return <View style={styles.container}>{this.renderCamera()}</View>;
+  
 
     //If value is set then return this view
     if (!this.state.openScanner) {
@@ -160,6 +179,7 @@ export default class barcode extends Component {
     }
     return (
       <View style={{ flex: 1 }}>
+
       
         <CameraKitCameraScreen
 

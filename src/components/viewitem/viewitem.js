@@ -11,92 +11,61 @@ class Viewitem extends React.Component {
     this.state = {
       //to disable which data is loading
       isLoading: true,
-      modalVisible: false,
-
+      msg:''
      
     };
   }
 
   componentDidMount(){
-    //this.props.navigation.addListener('willFocus', (route) => { this.setState({isLoading: false })});
-     //this._retrieveData();
-    
-    /* fetch('http://35.246.54.179/login/', {
-     method: 'POST',
-     headers: {
-     Accept: 'application/json',
-    'Content-Type': 'application/json',
-     },
-     body: JSON.stringify({
-    'email': 'sahandilshan222@gmail.com',
-    'pass': 'test1234'
-     }),
+   this.getData();
 
-    }).then((response) => response.json())
-    .then((responseJson) => {
-    console.log(responseJson);
+  }
 
-    
-
-    
- })
- .catch((error) => {
-   console.error(error);
- });*/
-
- /*fetch('http://104.196.211.215/detectShop/', {
-  method: 'POST',
-  headers: {
-  Accept: 'application/json',
- 'Content-Type': 'application/json',
-  },
-  body: JSON.stringify({
- 'shop_name': 'Kandy',
- 'branch': 'Kadawatha'
-  }),
-
- }).then((response) => response.json())
- .then((responseJson) => {
- console.log(responseJson);
-
- 
-})
-.catch((error) => {
-console.error(error);
-});*/
-
-
-return fetch('http://104.196.211.215/prediction/')
-      .then(response => response.json())
-      .then(responseJson => {
-        console.log(responseJson);
-        let ds = new ListView.DataSource({
-          rowHasChanged: (r1, r2) => r1 !== r2,
-        });
-        //console.log(this.state.dataSource.getRowCount());
-       
-        if(!this.isEmpty(responseJson.notAvailable)){
-      
-          this.setState({
-         
-          isLoading: false,
-          dataSource: ds.cloneWithRows(responseJson.notAvailable),
-        });}
-        else{
-          this.setState({
-         
-            isLoading: false,
-            dataSource: ds.cloneWithRows(responseJson.available),
-          });
-        }
-        console.log(this.state.dataSource.getRowCount());
-      })
-      .catch(error => {
-        console.error(error);
+  getData = async () => {
+     
+    const value = await AsyncStorage.getItem('email');
+    fetch('http://35.246.67.79/prediction/',{
+      method: 'POST',
+      headers: {
+      Accept: 'application/json',
+     'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+     'email':value,
+      }),
+  
+     })
+    .then(response => response.json())
+    .then(responseJson => {
+      console.log(responseJson);
+      let ds = new ListView.DataSource({
+        rowHasChanged: (r1, r2) => r1 !== r2,
       });
-  //this._storeData();
-
-    //console.log("moubnted");
+      //console.log(this.state.dataSource.getRowCount());
+     
+      if(!this.isEmpty(responseJson.notAvailable)){
+    
+        this.setState({
+       
+        isLoading: false,
+        msg:'Some Random Products',
+        dataSource: ds.cloneWithRows(responseJson.notAvailable),
+      });}
+      else if(!this.isEmpty(responseJson.available)){
+        this.setState({
+       
+          isLoading: false,
+          msg:'Predicted Products',
+          dataSource: ds.cloneWithRows(responseJson.available),
+        });
+      }
+     
+      //console.log(this.state.dataSource.getRowCount());
+    })
+    .catch(error => {
+      console.error(error);
+    });
+  
   }
   
   ListViewItemSeparator = () => {
@@ -106,11 +75,7 @@ return fetch('http://104.196.211.215/prediction/')
     );
   };
 
-  setModalVisible(visible) {
-    this.setState({modalVisible: visible});
-  }
-
-  isEmpty(obj) {
+  isEmpty(obj){
     for(var key in obj) {
         if(obj.hasOwnProperty(key))
             return false;
@@ -124,18 +89,37 @@ return fetch('http://104.196.211.215/prediction/')
   
   };
   render() {
-  
+   
+    
     if (this.state.isLoading) {
       //returning the loader view while data is loading
       return (
+        
         <View style={{ flex: 1, paddingTop: 20 }}>
+        
+        
           <ActivityIndicator />
+          <NavigationEvents
+          onDidFocus={() => {
+           this.setState({ isLoading:true});
+           this.componentDidMount();
+       
+         }}
+          />
         </View>
       );
     }else{
       //returning the main view after data loaded successfully
       return (
         <View style={styles.MainContainer}>
+          <Text style={styles.info}>{this.state.msg}</Text>
+          <NavigationEvents
+          onDidFocus={() => {
+           this.setState({ isLoading: false});
+           this.componentDidMount();
+       
+         }}
+          />
          
           <ListView
             dataSource={this.state.dataSource}
@@ -229,7 +213,12 @@ const styles = StyleSheet.create({
     textViewContainer: {
     paddingLeft: 10,
     paddingRight: 10,
-  },
+  },info:{
+    fontSize:16,
+    color: "#c41bb0",
+    marginTop:10,
+    paddingBottom:10
+  }
 });
 
 export default Viewitem;

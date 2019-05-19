@@ -10,17 +10,22 @@ import {
    StyleSheet,
    TouchableOpacity,
    Alert,
-   AsyncStorage
+   AsyncStorage,
+   
   } from 'react-native';
+
+  import { NavigationEvents } from "react-navigation";
 
 import { CameraKitCameraScreen, } from 'react-native-camera-kit';
 
 export default class App extends Component {
   constructor() {
+     global.email='';
     super();
     this.state = {
       qrvalue: '',        //variable to hold the qr value
       opneScanner: false,
+     
     };
   }
   componentDidMount(){
@@ -74,22 +79,23 @@ export default class App extends Component {
     try {
       const value = await AsyncStorage.getItem('email');
       const pass = await AsyncStorage.getItem('pass');
+      global.email=value;
       if (value !== null) {
         // We have data!!
         console.log(value);
-         this.setState({ user:value});
-         this.setState({pass:pass});
-        console.log(pass);
+         //this.setState({ user:value});
+         //this.setState({pass:pass});
+        console.log("sfssdfdf"+global.email);
 
-        fetch('http://104.196.211.215/login/', {
+        fetch('http://35.246.67.79/login/', {
           method: 'POST',
           headers: {
           Accept: 'application/json',
          'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-         'email': this.state.user,
-         'pass':this.state.pass,
+         'email':value,
+         'pass':pass,
           }),
       
          }).then((response) => response.json())
@@ -113,12 +119,13 @@ export default class App extends Component {
     shop = div[0];
     branch=div[1];
     console.log(shop)
-    fetch('http://104.196.211.215/detectShop/', {
+    fetch('http://35.246.67.79/detectShop/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
+          'email':global.email,
           'shop_name':shop,
           'branch': branch
          
@@ -158,7 +165,7 @@ export default class App extends Component {
                 </Text>
             </TouchableHighlight>
             
-
+            
             <TouchableOpacity onPress={this.handlePress.bind(this)}>
              <Text style={{paddingTop: 50, color: '#FF0000',fontSize:20}}> ---Check if connected with the Shop--- </Text>
             </TouchableOpacity>
@@ -168,6 +175,14 @@ export default class App extends Component {
     }
     return (
       <View style={{ flex: 1 }}>
+          <NavigationEvents
+          onDidFocus={() => {
+           this.setState({ opneScanner: false});
+          
+       
+         }}
+          />
+        
         <CameraKitCameraScreen
           showFrame={true}
           
